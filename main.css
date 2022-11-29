@@ -1,6 +1,21 @@
 body {
 	text-align: center;
 }
+li {
+	list-style: none;
+}
+.todos {
+	margin: 0 auto;
+	margin-top: 20px;
+	padding: 30px;
+
+	background-color: darkslategray;
+	width: 50vw;
+	color: #fff;
+}
+.todos li {
+	margin-top: 20px;
+}
 .box1,
 .box2 {
 	width: 100px;

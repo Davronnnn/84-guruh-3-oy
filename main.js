@@ -1,41 +1,78 @@
-const elInput = document.querySelector('#number');
-const elForm = document.querySelector('form');
-const elBooks = document.querySelector('.books');
+const elResult = document.querySelector('.todos');
 
-// push oxiridan qo'shadi
-// pop oxiridan o'chiradi
+const products = [
+	{
+		title: 'Холодильник Hofmann',
+		star: 0.5,
+		price: '2 300 000 sum',
+		img: 'https://picsum.photos/200/300',
+	},
+	{
+		title: 'Холодильник Hofmann',
+		star: 0.5,
+		price: '2 300 000 sum',
+		img: 'https://picsum.photos/200/300',
+	},
+	{
+		title: 'Холодильник Hofmann',
+		star: 0.5,
+		price: '2 300 000 sum',
+		img: 'https://picsum.photos/200/300',
+	},
+	{
+		title: 'Холодильник Hofmann',
+		star: 0.5,
+		price: '2 300 000 sum',
+		img: 'https://picsum.photos/200/300',
+	},
+];
 
-// unshift boshidan qo'shadi
-// shift boshidan o'chiradi
+for (let i = 0; i < products.length; i++) {
+	const product = products[i];
 
-// length uzunligini qaytaradi
-// concat arraylarni qo'shib beradi
+	const li = document.createElement('li');
 
-const books = ['atomic habits', 'deep work', 'js definition guide'];
+	const img = document.createElement('img');
+	const title = document.createElement('h3');
+	const price = document.createElement('p');
+	const rating = document.createElement('p');
 
-console.log(books);
-// kiss - keep it simply and stupid
+	title.textContent = product.title;
+	price.textContent = product.price;
 
-function nimadir(array, parentElement) {
-	for (let i = 0; i < array.length; i++) {
-		const element = array[i];
+	img.src = product.img;
 
-		const titleBook = document.createElement('h3');
-
-		titleBook.textContent = element;
-		parentElement.appendChild(titleBook);
+	if (product.star > 4 && product.star <= 5) {
+		rating.textContent = '⭐️⭐️⭐️⭐️⭐️';
+	} else if (product.star <= 4 && product.star > 3) {
+		rating.textContent = '⭐️⭐️⭐️⭐️';
+	} else if (product.star <= 3 && product.star > 2) {
+		rating.textContent = '⭐️⭐️⭐️';
+	} else if (product.star <= 2 && product.star > 1) {
+		rating.textContent = '⭐️⭐️';
+	} else if (product.star <= 1 && product.star > 0) {
+		rating.textContent = '⭐️';
+	} else {
+		rating.textContent = 'notogri qiymat';
 	}
+
+	li.appendChild(img);
+	li.appendChild(title);
+	li.appendChild(price);
+	li.appendChild(rating);
+
+	elResult.appendChild(li);
 }
 
-elForm.addEventListener('submit', function (e) {
-	e.preventDefault();
-	elBooks.textContent = '';
-	const value = elInput.value;
-	if (value.length !== 0) {
-		books.push(value);
-	}
-	nimadir(books, elBooks);
-	elInput.value = '';
-});
-
-nimadir(books, elBooks);
+const user = {
+	userName: 'John',
+	isAdmin: true,
+	age: 23,
+	hobbies: ['running', 'swimming'],
+	salomBer() {
+		return 'salom';
+	},
+	sayHi: function () {
+		return 'xayr';
+	},
+};
