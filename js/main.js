@@ -2,6 +2,7 @@ const elForm = document.querySelector('#form');
 const elPosts = document.querySelector('#posts');
 
 function renderPosts(array = posts, parentNode = elPosts) {
+	parentNode.textContent = '';
 	array.forEach(function (element) {
 		const newDiv = document.createElement('div');
 
@@ -13,7 +14,8 @@ function renderPosts(array = posts, parentNode = elPosts) {
 			? `${day}-kun, ${month}-oy, ${year}-yil`
 			: 'sana kiritilmagan';
 
-		newDiv.className = 'card col-6 ';
+		newDiv.className = 'card col-6 p-3 ';
+		newDiv.style.height = 'auto';
 
 		newDiv.innerHTML = `
                     <img src="${element.image}"  class="card-img-top w-100 h-50" alt="${element.title}" />
@@ -23,6 +25,10 @@ function renderPosts(array = posts, parentNode = elPosts) {
 							${element.subtitle}
 						</p>
 						<span>${resultDate} </span>
+					</div>
+					<div className="row">
+						<button style="width:"30%" class="btn btn-danger d-inline-block" data-id=${element.id} >Delete</button>
+						<button data-id=${element.id} style="width:"30%" class="btn btn-info d-inline-block">Edit</button>
 					</div>
                     `;
 
@@ -34,7 +40,6 @@ renderPosts();
 
 elForm.addEventListener('submit', function (e) {
 	e.preventDefault();
-	elPosts.textContent = '';
 
 	const elTitle = e.target.title.value;
 	const elSubtitle = e.target.subtitle.value;
@@ -42,12 +47,44 @@ elForm.addEventListener('submit', function (e) {
 	const elDate = e.target.date.value;
 
 	const newPost = {
+		id: posts.length,
 		title: elTitle,
 		subtitle: elSubtitle,
 		image: elImage,
 		date: elDate,
 	};
+
 	posts.push(newPost);
 
 	renderPosts();
+});
+
+elPosts.addEventListener('click', function (e) {
+	const element = e.target;
+
+	if (element.matches('.btn-danger')) {
+		const id = element.dataset.id;
+
+		const filteredArray = posts.filter(function (element) {
+			if (element.id !== Number(id)) {
+				return element;
+			}
+		});
+		posts = filteredArray;
+
+		renderPosts(posts);
+	}
+
+	if (element.matches('.btn-info')) {
+		const id = element.dataset.id;
+
+		const filteredArray = posts.filter(function (element) {
+			if (element.id !== Number(id)) {
+				return element;
+			}
+		});
+		posts = filteredArray;
+
+		renderPosts(posts);
+	}
 });
