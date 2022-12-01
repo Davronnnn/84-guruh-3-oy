@@ -4,29 +4,87 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<!-- <link rel="stylesheet" href="./main.css" /> -->
-		<link rel="stylesheet" href="./main.css" />
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css"
+			integrity="sha512-SbiR/eusphKoMVVXysTKG/7VseWii+Y3FdHrt0EpKgpToZeemhqHeZeLWLhJutz/2ut2Vw1uQEj2MbRF+TVBUA=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		/>
+		<link rel="stylesheet" href="./css/main.css" />
+
 		<title>Javascript</title>
 	</head>
 	<body>
-		<h1>Todo list</h1>
+		<div class="container mt-5">
+			<form class="form-control" id="form">
+				<h2>Post qo'shish</h2>
+				<div class="row">
+					<div class="col-md-6 mt-3">
+						<div class="form-group">
+							<label for="title">Post title</label>
+							<input
+								type="text"
+								class="form-control"
+								placeholder=""
+								id="title"
+								name="title"
+							/>
+						</div>
+					</div>
 
-		<form>
-			<label for="number">
-				Todo kiriting
-				<input type="string" name="input" id="todo-input" />
+					<div class="col-md-6 mt-3">
+						<div class="form-group">
+							<label for="subtitle">Subtitle</label>
+							<input
+								type="text"
+								class="form-control"
+								placeholder="subtitle"
+								id="subtitle"
+								name="subtitle"
+							/>
+						</div>
+					</div>
 
-				
-			</label>
-			<button type="submit">Add todo</button>
-			<button type="reset">Reset</button>
-		</form>
+					<div class="col-md-6 mt-3">
+						<div class="form-group">
+							<label for="image">Image</label>
+							<input
+								type="text"
+								class="form-control"
+								placeholder="image"
+								id="image"
+								name="image"
+							/>
+						</div>
+					</div>
 
-		<ul class="todos">
-			<li class="col-6"></li>
-		</ul>
+					<div class="col-md-6 mt-3">
+						<div class="form-group">
+							<label for="date">Date</label>
+							<input
+								type="date"
+								class="form-control"
+								placeholder="date"
+								id="date"
+								name="date"
+							/>
+						</div>
+					</div>
+				</div>
 
-		<script src="./main.js"></script>
-		<!-- <script src="./home-work.js"></script> -->
+				<button type="submit" class="btn btn-primary mt-5">
+					Submit
+				</button>
+			</form>
+
+			<a class="btn btn-warning" href="./posts.html">Postlar</a>
+		</div>
+
+		<div class="row mt-5 justify-content-around gap-5" id="posts"></div>
+
+		<script src="./js/posts.js"></script>
+
+		<script src="./js/main.js"></script>
 	</body>
 </html>
