@@ -19,5 +19,6 @@ let posts = [
 		subtitle: 'subtitle',
 		image: 'https://picsum.photos/250/150',
 		date: '2022-12-06',
+		category: ["siyosat", "sport"]
 	},
 ];

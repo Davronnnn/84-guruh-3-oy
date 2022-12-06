@@ -1,8 +1,13 @@
 const elForm = document.querySelector('#form');
+const elForm2 = document.querySelector('#modal-form');
 const elPosts = document.querySelector('#posts');
+const modalImg = document.querySelector('#modal-img');
+const editBtn = document.querySelector('#edit');
+const modal = document.querySelector('.modal');
 
 function renderPosts(array = posts, parentNode = elPosts) {
-	parentNode.textContent = '';
+	parentNode.textContent = null;
+
 	array.forEach(function (element) {
 		const newDiv = document.createElement('div');
 
@@ -14,7 +19,7 @@ function renderPosts(array = posts, parentNode = elPosts) {
 			? `${day}-kun, ${month}-oy, ${year}-yil`
 			: 'sana kiritilmagan';
 
-		newDiv.className = 'card col-6 p-3 ';
+		newDiv.className = 'card col-12 col-md-6 p-3 ';
 		newDiv.style.height = 'auto';
 
 		newDiv.innerHTML = `
@@ -28,7 +33,8 @@ function renderPosts(array = posts, parentNode = elPosts) {
 					</div>
 					<div className="row">
 						<button style="width:"30%" class="btn btn-danger d-inline-block" data-id=${element.id} >Delete</button>
-						<button data-id=${element.id} style="width:"30%" class="btn btn-info d-inline-block">Edit</button>
+						<button data-id=${element.id} style="width:"30%" class="btn btn-info d-inline-block" data-bs-target="#exampleModal" 	data-bs-toggle="modal" class="btn btn-primary">Edit</button>
+						
 					</div>
                     `;
 
@@ -38,13 +44,11 @@ function renderPosts(array = posts, parentNode = elPosts) {
 
 renderPosts();
 
-elForm.addEventListener('submit', function (e) {
-	e.preventDefault();
-
-	const elTitle = e.target.title.value;
-	const elSubtitle = e.target.subtitle.value;
-	const elImage = e.target.image.value;
-	const elDate = e.target.date.value;
+function addPost(form) {
+	const elTitle = form.title.value;
+	const elSubtitle = form.subtitle.value;
+	const elImage = form.image.value;
+	const elDate = form.date.value;
 
 	const newPost = {
 		id: posts.length,
@@ -57,15 +61,19 @@ elForm.addEventListener('submit', function (e) {
 	posts.push(newPost);
 
 	renderPosts();
+}
+elForm.addEventListener('submit', (e) => {
+	e.preventDefault();
+	addPost(e.target);
 });
 
-elPosts.addEventListener('click', function (e) {
+elPosts.addEventListener('click', (e) => {
 	const element = e.target;
 
 	if (element.matches('.btn-danger')) {
 		const id = element.dataset.id;
 
-		const filteredArray = posts.filter(function (element) {
+		const filteredArray = posts.filter((element) => {
 			if (element.id !== Number(id)) {
 				return element;
 			}
@@ -78,13 +86,32 @@ elPosts.addEventListener('click', function (e) {
 	if (element.matches('.btn-info')) {
 		const id = element.dataset.id;
 
-		const filteredArray = posts.filter(function (element) {
-			if (element.id !== Number(id)) {
-				return element;
+		const title = elForm2.modalTitle;
+		const subTitle = elForm2.modalSubtitle;
+		const date = elForm2.modalDate;
+		const img = elForm2.modalImage;
+
+		posts.forEach((element) => {
+			if (element.id === Number(id)) {
+				title.value = posts[id].title;
+				subTitle.value = posts[id].subtitle;
+				date.value = posts[id].date;
+				img.value = posts[id].image;
+				modalImg.src = posts[id].image;
+
+				editBtn.addEventListener('click', () => {
+					posts[id].title = title.value;
+					posts[id].subtitle = subTitle.value;
+					posts[id].image = img.value;
+					posts[id].date = date.value;
+
+					renderPosts();
+				});
 			}
 		});
-		posts = filteredArray;
 
 		renderPosts(posts);
 	}
 });
+
+const array = [12, 34, 12, 34, 123, 34];
