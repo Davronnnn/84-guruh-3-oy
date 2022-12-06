@@ -4,6 +4,8 @@ const elPosts = document.querySelector('#posts');
 const modalImg = document.querySelector('#modal-img');
 const editBtn = document.querySelector('#edit');
 const modal = document.querySelector('.modal');
+const elSearch = document.querySelector('#search');
+const elCategory = document.querySelector('#category-search');
 
 function renderPosts(array = posts, parentNode = elPosts) {
 	parentNode.textContent = null;
@@ -22,6 +24,17 @@ function renderPosts(array = posts, parentNode = elPosts) {
 		newDiv.className = 'card col-12 col-md-6 p-3 ';
 		newDiv.style.height = 'auto';
 
+		const categories = element.category;
+
+		const ul = document.createElement('ul');
+
+		ul.className = 'mt-3';
+		categories.forEach((element) => {
+			const li = document.createElement('li');
+			li.textContent = element;
+			ul.appendChild(li);
+		});
+
 		newDiv.innerHTML = `
                     <img src="${element.image}"  class="card-img-top w-100 h-50" alt="${element.title}" />
 					<div class="card-body">
@@ -34,15 +47,12 @@ function renderPosts(array = posts, parentNode = elPosts) {
 					<div className="row">
 						<button style="width:"30%" class="btn btn-danger d-inline-block" data-id=${element.id} >Delete</button>
 						<button data-id=${element.id} style="width:"30%" class="btn btn-info d-inline-block" data-bs-target="#exampleModal" 	data-bs-toggle="modal" class="btn btn-primary">Edit</button>
-						
 					</div>
                     `;
-
+		newDiv.appendChild(ul);
 		parentNode.appendChild(newDiv);
 	});
 }
-
-renderPosts();
 
 function addPost(form) {
 	const elTitle = form.title.value;
@@ -50,23 +60,34 @@ function addPost(form) {
 	const elImage = form.image.value;
 	const elDate = form.date.value;
 
+	const categories = [];
+	form.category.forEach((element) => {
+		console.log(element);
+		if (element.checked) {
+			categories.push(element.value);
+		}
+	});
+
 	const newPost = {
 		id: posts.length,
 		title: elTitle,
 		subtitle: elSubtitle,
 		image: elImage,
 		date: elDate,
+		category: categories,
 	};
 
 	posts.push(newPost);
 
 	renderPosts();
 }
+
 elForm.addEventListener('submit', (e) => {
 	e.preventDefault();
 	addPost(e.target);
 });
 
+// post edit delete
 elPosts.addEventListener('click', (e) => {
 	const element = e.target;
 
@@ -114,4 +135,36 @@ elPosts.addEventListener('click', (e) => {
 	}
 });
 
-const array = [12, 34, 12, 34, 123, 34];
+elSearch.addEventListener('input', () => {
+	const value = elSearch.value;
+
+	filteredArray = posts.filter((element) => {
+		if (
+			element.title.toLowerCase().match(value.toLowerCase()) ||
+			element.subtitle.toLowerCase().match(value.toLowerCase())
+		) {
+			return element;
+		}
+	});
+	renderPosts(filteredArray);
+});
+
+elCategory.addEventListener('change', () => {
+	const inputCategory = elCategory.value;
+
+	if (inputCategory === 'all') {
+		renderPosts(posts);
+	} else {
+		const filteredArray = [];
+		posts.forEach((post) => {
+			post.category.filter((category) => {
+				if (category.toLowerCase() === inputCategory.toLowerCase()) {
+					filteredArray.push(post);
+				}
+			});
+		});
+		renderPosts(filteredArray);
+	}
+});
+
+renderPosts();

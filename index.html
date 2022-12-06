@@ -169,6 +169,35 @@
 							/>
 						</div>
 					</div>
+					<div class="col-md-6 mt-3">
+						<div class="form-group">
+							<label for="sanat">sanat</label>
+							<input
+								name="category"
+								type="checkbox"
+								id="sanat"
+								value="sanat"
+							/>
+						</div>
+						<div class="form-group">
+							<label for="sport">sport</label>
+							<input
+								name="category"
+								type="checkbox"
+								id="sport"
+								value="sport"
+							/>
+						</div>
+						<div class="form-group">
+							<label for="siyosat">siyosat</label>
+							<input
+								name="category"
+								type="checkbox"
+								id="siyosat"
+								value="siyosat"
+							/>
+						</div>
+					</div>
 				</div>
 
 				<button type="submit" class="btn btn-primary mt-5">
@@ -178,6 +207,21 @@
 
 			<a class="btn btn-warning" href="./posts.html">Postlar</a>
 		</div>
+
+		<input
+			class="my-3 form-control w-25 mx-auto"
+			placeholder="Search..."
+			type="search"
+			id="search"
+		/>
+		<select class="my-3 form-control w-25 mx-auto" id="category-search">
+			<option hidden>Categoriya</option>
+			<option value="all">Barcha postlar</option>
+			<option value="sport">sport</option>
+			<option value="jamiyat">jamiyat</option>
+			<option value="dunyo">dunyo</option>
+			<option value="siyosat">siyosat</option>
+		</select>
 
 		<div class="row mt-5 justify-content-around gap-5" id="posts"></div>
 
