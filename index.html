@@ -208,21 +208,22 @@
 			<a class="btn btn-warning" href="./posts.html">Postlar</a>
 		</div>
 
-		<input
-			class="my-3 form-control w-25 mx-auto"
-			placeholder="Search..."
-			type="search"
-			id="search"
-		/>
-		<select class="my-3 form-control w-25 mx-auto" id="category-search">
-			<option hidden>Categoriya</option>
-			<option value="all">Barcha postlar</option>
-			<option value="sport">sport</option>
-			<option value="jamiyat">jamiyat</option>
-			<option value="dunyo">dunyo</option>
-			<option value="siyosat">siyosat</option>
-		</select>
-
+		<div class="filter">
+			<input
+				class="my-3 form-control w-25 mx-auto"
+				placeholder="Search..."
+				type="search"
+				id="search"
+			/>
+			<select class="my-3 form-control w-25 mx-auto" id="category-search">
+				<option hidden>Categoriya</option>
+				<option value="all">Barcha postlar</option>
+				<option value="sport">sport</option>
+				<option value="jamiyat">jamiyat</option>
+				<option value="dunyo">dunyo</option>
+				<option value="siyosat">siyosat</option>
+			</select>
+		</div>
 		<div class="row mt-5 justify-content-around gap-5" id="posts"></div>
 
 		<script

@@ -6,6 +6,21 @@ const editBtn = document.querySelector('#edit');
 const modal = document.querySelector('.modal');
 const elSearch = document.querySelector('#search');
 const elCategory = document.querySelector('#category-search');
+const elFilter = document.querySelector('.filter');
+
+const array = [1, 5, 3, 4];
+
+const array2 = ['asda', 'ASdasd', true];
+
+const result = array.reduce((result, element) => {
+	return result * element;
+});
+
+const string = 'john';
+
+console.log(string[0], string[1]);
+console.log(result);
+console.log(array);
 
 function renderPosts(array = posts, parentNode = elPosts) {
 	parentNode.textContent = null;
@@ -54,6 +69,31 @@ function renderPosts(array = posts, parentNode = elPosts) {
 	});
 }
 
+function renderCategories(posts) {
+	const categories = [];
+
+	const ul = document.createElement('ul');
+	ul.className = 'd-flex justify-content-around bg-warning';
+	elFilter.appendChild(ul);
+
+	posts.forEach((post) => {
+		post.category.forEach((category) => {
+			if (!categories.includes(category)) {
+				categories.push(category);
+			}
+		});
+	});
+
+	categories.forEach((category) => {
+		const li = document.createElement('li');
+		li.textContent = category;
+		li.className = 'bg-primary text-light p-2 pointer btn';
+		li.setAttribute('role', 'button');
+
+		ul.appendChild(li);
+	});
+}
+
 function addPost(form) {
 	const elTitle = form.title.value;
 	const elSubtitle = form.subtitle.value;
@@ -82,6 +122,7 @@ function addPost(form) {
 	renderPosts();
 }
 
+// Add post
 elForm.addEventListener('submit', (e) => {
 	e.preventDefault();
 	addPost(e.target);
@@ -149,6 +190,7 @@ elSearch.addEventListener('input', () => {
 	renderPosts(filteredArray);
 });
 
+// post filter
 elCategory.addEventListener('change', () => {
 	const inputCategory = elCategory.value;
 
@@ -167,4 +209,5 @@ elCategory.addEventListener('change', () => {
 	}
 });
 
+renderCategories(posts);
 renderPosts();
