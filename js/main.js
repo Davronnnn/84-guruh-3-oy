@@ -7,6 +7,9 @@ const modal = findElement('.modal');
 const elSearch = findElement('#search');
 const elCategory = findElement('#category-search');
 const elFilter = findElement('.filter');
+const isPosts = findElement('.posts-page');
+
+let posts = [] && JSON.parse(localStorage.getItem('posts'));
 
 function renderPosts(array = posts, parentNode = elPosts) {
 	parentNode.textContent = null;
@@ -37,7 +40,11 @@ function renderPosts(array = posts, parentNode = elPosts) {
 		});
 
 		newDiv.innerHTML = `
-                    <img src="${element.image}"  class="card-img-top w-100 h-50" alt="${element.title}" />
+                    <img src="${
+						element.image
+					}"  class="card-img-top w-100 h-50" alt="${
+			element.title
+		}" />
 					<div class="card-body">
 						<h5 class="card-title">${element.title}</h5>
 						<p class="card-text">
@@ -45,10 +52,14 @@ function renderPosts(array = posts, parentNode = elPosts) {
 						</p>
 						<span>${resultDate} </span>
 					</div>
-					<div className="row">
-						<button style="width:"30%" class="btn btn-danger d-inline-block" data-id=${element.id} >Delete</button>
-						<button data-id=${element.id} style="width:"30%" class="btn btn-info d-inline-block" data-bs-target="#exampleModal" 	data-bs-toggle="modal" class="btn btn-primary">Edit</button>
-					</div>
+					${
+						!isPosts
+							? `<div className="row">
+						<button style="width:"30%" class="btn btn-danger d-inline-block" data-id=${element.id}>Delete</button>
+						<button data-id=${element.id} style="width:"30 % " class="btn btn-info d-inline-block" data-bs-target="#exampleModal" 	data-bs-toggle="modal" class="btn btn-primary">Edit</button>
+					</div >`
+							: ''
+					}
                     `;
 		newDiv.appendChild(ul);
 		parentNode.appendChild(newDiv);
@@ -60,7 +71,7 @@ function renderCategories(posts) {
 
 	const ul = document.createElement('ul');
 	ul.className = 'd-flex justify-content-around bg-warning';
-	elFilter.appendChild(ul);
+	elFilter?.appendChild(ul);
 
 	posts.forEach((post) => {
 		post.category.forEach((category) => {
@@ -88,7 +99,6 @@ function addPost(form) {
 
 	const categories = [];
 	form.category.forEach((element) => {
-		console.log(element);
 		if (element.checked) {
 			categories.push(element.value);
 		}
@@ -105,6 +115,7 @@ function addPost(form) {
 
 	posts.push(newPost);
 
+	localStorage.setItem('posts', JSON.stringify(posts));
 	renderPosts();
 }
 
@@ -128,6 +139,7 @@ elPosts.addEventListener('click', (e) => {
 		});
 		posts = filteredArray;
 
+		localStorage.setItem('posts', JSON.stringify(posts));
 		renderPosts(posts);
 	}
 
@@ -157,12 +169,13 @@ elPosts.addEventListener('click', (e) => {
 				});
 			}
 		});
+		localStorage.setItem('posts', JSON.stringify(posts));
 
 		renderPosts(posts);
 	}
 });
 
-elSearch.addEventListener('input', () => {
+elSearch?.addEventListener('input', () => {
 	const value = elSearch.value;
 
 	filteredArray = posts.filter((element) => {
@@ -177,7 +190,7 @@ elSearch.addEventListener('input', () => {
 });
 
 // post filter
-elCategory.addEventListener('change', () => {
+elCategory?.addEventListener('change', () => {
 	const inputCategory = elCategory.value;
 
 	if (inputCategory === 'all') {
@@ -197,18 +210,3 @@ elCategory.addEventListener('change', () => {
 
 renderCategories(posts);
 renderPosts();
-
-const array2 = ['A', 'B', 'C', 'A', 'ASd', 'B', -1, 23, -2, 1];
-
-function removeDuplicate(array) {
-	const result = {};
-	const array2 = [];
-	for (let i = 0; i < array.length; i++) {
-		const element = array[i];
-		if (!result[element]) {
-			result[element] = element;
-			array2.push(element);
-		}
-	}
-	return array2;
-}
