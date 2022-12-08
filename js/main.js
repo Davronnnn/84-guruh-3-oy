@@ -1,26 +1,12 @@
-const elForm = document.querySelector('#form');
-const elForm2 = document.querySelector('#modal-form');
-const elPosts = document.querySelector('#posts');
-const modalImg = document.querySelector('#modal-img');
-const editBtn = document.querySelector('#edit');
-const modal = document.querySelector('.modal');
-const elSearch = document.querySelector('#search');
-const elCategory = document.querySelector('#category-search');
-const elFilter = document.querySelector('.filter');
-
-const array = [1, 5, 3, 4];
-
-const array2 = ['asda', 'ASdasd', true];
-
-const result = array.reduce((result, element) => {
-	return result * element;
-});
-
-const string = 'john';
-
-console.log(string[0], string[1]);
-console.log(result);
-console.log(array);
+const elForm = findElement('#form');
+const elForm2 = findElement('#modal-form');
+const elPosts = findElement('#posts');
+const modalImg = findElement('#modal-img');
+const editBtn = findElement('#edit');
+const modal = findElement('.modal');
+const elSearch = findElement('#search');
+const elCategory = findElement('#category-search');
+const elFilter = findElement('.filter');
 
 function renderPosts(array = posts, parentNode = elPosts) {
 	parentNode.textContent = null;
@@ -211,3 +197,18 @@ elCategory.addEventListener('change', () => {
 
 renderCategories(posts);
 renderPosts();
+
+const array2 = ['A', 'B', 'C', 'A', 'ASd', 'B', -1, 23, -2, 1];
+
+function removeDuplicate(array) {
+	const result = {};
+	const array2 = [];
+	for (let i = 0; i < array.length; i++) {
+		const element = array[i];
+		if (!result[element]) {
+			result[element] = element;
+			array2.push(element);
+		}
+	}
+	return array2;
+}
